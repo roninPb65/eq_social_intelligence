@@ -151,11 +151,11 @@ export default function Simulator({ scenario, onBack }) {
           </div>
         </div>
 
-        <div style={{ background: '#FFF8F5', border: '1px solid rgba(199,91,55,0.2)', borderRadius: 16, padding: 18, marginBottom: 20, display: 'flex', gap: 12 }}>
-          <div style={{ fontSize: 20, flexShrink: 0 }}>💡</div>
+        <div style={{ background: 'rgba(26,23,20,0.04)', border: '0.5px solid rgba(26,23,20,0.12)', borderRadius: 16, padding: 18, marginBottom: 20, display: 'flex', gap: 12 }}>
+          <div style={{ fontSize: 18, flexShrink: 0, opacity: 0.7 }}>💡</div>
           <div>
-            <div style={{ fontSize: 12, fontWeight: 500, color: '#993C1D', marginBottom: 5 }}>Coach tip before you start</div>
-            <div style={{ fontSize: 14, color: '#712B13', lineHeight: 1.7 }}>{scenario.coachTip}</div>
+            <div style={{ fontSize: 11, fontWeight: 500, color: 'var(--ink-60)', marginBottom: 5, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Before you start</div>
+            <div style={{ fontSize: 14, color: 'var(--ink)', lineHeight: 1.75 }}>{scenario.coachTip}</div>
           </div>
         </div>
 
@@ -230,13 +230,13 @@ export default function Simulator({ scenario, onBack }) {
             Coach notes {allCoachNotes.length > 0 && `(${allCoachNotes.length})`}
           </div>
           {allCoachNotes.length === 0 ? (
-            <div style={{ fontSize: 12, color: 'var(--ink-30)', lineHeight: 1.65, fontStyle: 'italic' }}>
-              Your AI coach leaves feedback after every 3 exchanges.
+            <div style={{ fontSize: 12, color: 'var(--ink-30)', lineHeight: 1.7, fontStyle: 'italic' }}>
+              Your coach leaves feedback after every 3 exchanges.
             </div>
           ) : allCoachNotes.map((note, i) => (
-            <div key={i} style={{ marginBottom: 10, padding: '10px 12px', background: '#FFF8F5', borderRadius: 10, borderLeft: '3px solid #C75B37', animation: 'fadeUp 0.3s ease' }}>
-              <div style={{ fontSize: 10, fontWeight: 500, color: '#993C1D', marginBottom: 4, letterSpacing: '0.5px', textTransform: 'uppercase' }}>After turn {(i + 1) * 3}</div>
-              <div style={{ fontSize: 12, color: '#712B13', lineHeight: 1.6 }}>{note}</div>
+            <div key={i} style={{ marginBottom: 10, padding: '10px 12px', background: 'rgba(26,23,20,0.03)', borderRadius: 10, borderLeft: '2px solid rgba(26,23,20,0.2)', animation: 'fadeUp 0.3s ease' }}>
+              <div style={{ fontSize: 10, fontWeight: 500, color: 'var(--ink-60)', marginBottom: 4, letterSpacing: '0.5px', textTransform: 'uppercase' }}>After turn {(i + 1) * 3}</div>
+              <div style={{ fontSize: 12, color: 'var(--ink)', lineHeight: 1.65 }}>{note}</div>
             </div>
           ))}
         </div>
@@ -265,9 +265,9 @@ export default function Simulator({ scenario, onBack }) {
           {isTyping && <TypingIndicator avatar={scenario.persona.avatar} color={sc} />}
 
           {coachNote && (
-            <div style={{ background: '#FFF8F5', border: '1px solid rgba(199,91,55,0.2)', borderLeft: '3px solid #C75B37', borderRadius: '0 10px 10px 0', padding: '12px 14px', animation: 'fadeUp 0.4s ease' }}>
-              <div style={{ fontSize: 11, fontWeight: 500, color: '#993C1D', marginBottom: 5, letterSpacing: '1px', textTransform: 'uppercase' }}>💡 Coach insight</div>
-              <div style={{ fontSize: 13, color: '#712B13', lineHeight: 1.65 }}>{coachNote}</div>
+            <div style={{ background: 'rgba(26,23,20,0.03)', border: '0.5px solid rgba(26,23,20,0.12)', borderLeft: '2px solid rgba(26,23,20,0.25)', borderRadius: '0 10px 10px 0', padding: '12px 14px', animation: 'fadeUp 0.4s ease' }}>
+              <div style={{ fontSize: 10, fontWeight: 500, color: 'var(--ink-60)', marginBottom: 5, letterSpacing: '1px', textTransform: 'uppercase' }}>Coach insight</div>
+              <div style={{ fontSize: 13, color: 'var(--ink)', lineHeight: 1.7 }}>{coachNote}</div>
             </div>
           )}
 

@@ -6,7 +6,7 @@ const difficultyColors = {
   Advanced:     { bg: '#FAECE7', text: '#4A1B0C' },
 };
 
-export default function ScenarioCard({ scenario, onSelect, index }) {
+export default function ScenarioCard({ scenario, onSelect, index, completed }) {
   const sc = skillColors[scenario.skillColor];
   const dc = difficultyColors[scenario.difficulty];
 
@@ -14,61 +14,70 @@ export default function ScenarioCard({ scenario, onSelect, index }) {
     <div
       onClick={() => onSelect(scenario)}
       style={{
-        background: '#fff',
-        border: '0.5px solid rgba(26,23,20,0.12)',
+        background: completed ? '#FAFAF8' : '#fff',
+        border: `0.5px solid ${completed ? 'rgba(45,106,80,0.2)' : 'rgba(26,23,20,0.1)'}`,
         borderRadius: 20,
-        padding: '28px',
+        padding: '26px',
         cursor: 'pointer',
-        transition: 'transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease',
-        animation: `fadeUp 0.4s ease ${index * 0.08}s both`,
+        transition: 'transform 0.18s ease, border-color 0.18s ease',
+        animation: `fadeUp 0.4s ease ${index * 0.06}s both`,
+        position: 'relative',
       }}
       onMouseEnter={e => {
-        e.currentTarget.style.transform = 'translateY(-4px)';
-        e.currentTarget.style.borderColor = 'rgba(26,23,20,0.3)';
-        e.currentTarget.style.boxShadow = '0 8px 32px rgba(26,23,20,0.08)';
+        e.currentTarget.style.transform = 'translateY(-3px)';
+        e.currentTarget.style.borderColor = completed ? 'rgba(45,106,80,0.35)' : 'rgba(26,23,20,0.22)';
       }}
       onMouseLeave={e => {
         e.currentTarget.style.transform = 'translateY(0)';
-        e.currentTarget.style.borderColor = 'rgba(26,23,20,0.12)';
-        e.currentTarget.style.boxShadow = 'none';
+        e.currentTarget.style.borderColor = completed ? 'rgba(45,106,80,0.2)' : 'rgba(26,23,20,0.1)';
       }}
     >
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 16 }}>
+      {completed && (
+        <div style={{
+          position: 'absolute', top: 16, right: 16,
+          width: 20, height: 20, borderRadius: '50%',
+          background: '#2D6A50', display: 'flex', alignItems: 'center', justifyContent: 'center',
+        }}>
+          <span style={{ color: '#fff', fontSize: 10, lineHeight: 1 }}>✓</span>
+        </div>
+      )}
+
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 15 }}>
         <div style={{
           background: sc.bg, color: sc.text,
-          fontSize: 11, fontWeight: 500, letterSpacing: '1px',
+          fontSize: 10, fontWeight: 500, letterSpacing: '1px',
           textTransform: 'uppercase', padding: '4px 10px',
           borderRadius: 20, display: 'flex', alignItems: 'center', gap: 5,
         }}>
-          <div style={{ width: 6, height: 6, borderRadius: '50%', background: sc.dot }} />
+          <div style={{ width: 5, height: 5, borderRadius: '50%', background: sc.dot }} />
           {scenario.skill}
         </div>
         <div style={{
           background: dc.bg, color: dc.text,
-          fontSize: 11, fontWeight: 500, padding: '4px 10px',
+          fontSize: 10, fontWeight: 500, padding: '4px 10px',
           borderRadius: 20, letterSpacing: '0.5px',
         }}>
           {scenario.difficulty}
         </div>
       </div>
 
-      <div style={{ fontSize: 11, color: 'var(--ink-60)', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: 8 }}>
+      <div style={{ fontSize: 10, color: 'var(--ink-60)', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: 7 }}>
         {scenario.context}
       </div>
-      <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 22, letterSpacing: '-0.3px', marginBottom: 10, lineHeight: 1.2 }}>
+      <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 21, letterSpacing: '-0.3px', marginBottom: 9, lineHeight: 1.2 }}>
         {scenario.title}
       </h3>
-      <p style={{ fontSize: 14, color: 'var(--ink-60)', lineHeight: 1.65, marginBottom: 20 }}>
+      <p style={{ fontSize: 13, color: 'var(--ink-60)', lineHeight: 1.7, marginBottom: 18 }}>
         {scenario.setup}
       </p>
 
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <div style={{
-            width: 34, height: 34, borderRadius: '50%',
+            width: 32, height: 32, borderRadius: '50%',
             background: sc.bg, color: sc.text,
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: 12, fontWeight: 500,
+            fontSize: 11, fontWeight: 500,
           }}>
             {scenario.persona.avatar}
           </div>

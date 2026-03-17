@@ -4,7 +4,7 @@ import Simulator from './components/Simulator';
 import GoalsTracker from './components/GoalsTracker';
 import { scenarios } from './data/scenarios';
 
-const SKILLS = ['All', 'Emotional Regulation', 'Social Intelligence', 'Empathy in Practice', 'Conflict Navigation'];
+const SKILLS = ['All', 'Emotional Regulation', 'Social Intelligence', 'Self-Awareness', 'Empathy in Practice', 'Conflict Navigation'];
 
 export default function App() {
   const [view, setView] = useState('home');
@@ -47,65 +47,76 @@ export default function App() {
       <Nav view={view} setView={setView} totalXP={totalXP} completedCount={completedIds.length} />
 
       {/* Hero */}
-      <div style={{ padding: '56px 40px 40px', maxWidth: 900, margin: '0 auto', animation: 'fadeUp 0.5s ease' }}>
-        <div style={{ fontSize: 11, fontWeight: 500, letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--accent)', marginBottom: 16 }}>
+      <div style={{ padding: '52px 40px 36px', maxWidth: 860, margin: '0 auto', animation: 'fadeUp 0.5s ease' }}>
+        <div style={{ fontSize: 10, fontWeight: 500, letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--accent)', marginBottom: 14 }}>
           AI Scenario Simulator
         </div>
-        <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(32px,5vw,54px)', letterSpacing: '-1px', lineHeight: 1.1, marginBottom: 16 }}>
+        <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(30px,4.5vw,50px)', letterSpacing: '-1px', lineHeight: 1.12, marginBottom: 14 }}>
           Practice the conversations<br />
-          <em style={{ color: 'var(--accent)' }}>you dread having.</em>
+          <em style={{ color: 'var(--accent)' }}>you find difficult.</em>
         </h1>
-        <p style={{ fontSize: 17, color: 'var(--ink-60)', maxWidth: 500, lineHeight: 1.75, marginBottom: 16 }}>
-          Safe AI-powered roleplays of real emotional situations. Get live coaching after each exchange. No judgment — just reps.
+        <p style={{ fontSize: 16, color: 'var(--ink-60)', maxWidth: 480, lineHeight: 1.8, marginBottom: 14 }}>
+          A private space to practise real emotional situations with an AI. Receive live coaching after each exchange — no pressure, no judgment.
         </p>
-        <button onClick={() => setView('goals')} style={{
-          background: 'none', border: '0.5px solid rgba(26,23,20,0.2)',
-          borderRadius: 20, padding: '8px 18px', fontSize: 13, color: 'var(--ink)',
-          cursor: 'pointer', marginBottom: 36, transition: 'border-color 0.2s',
-          display: 'inline-flex', alignItems: 'center', gap: 6,
-        }}>
-          <span>📅</span> View 6-week growth programs →
-        </button>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 32, flexWrap: 'wrap' }}>
+          <button onClick={() => setView('goals')} style={{
+            background: 'none', border: '0.5px solid rgba(26,23,20,0.18)',
+            borderRadius: 20, padding: '7px 16px', fontSize: 13, color: 'var(--ink)',
+            cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 6,
+          }}>
+            View 6-week growth programs →
+          </button>
+          <div style={{ fontSize: 12, color: 'var(--ink-30)' }}>Progress saved automatically</div>
+        </div>
 
         {/* Filter pills */}
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 7 }}>
           {SKILLS.map(skill => (
             <button key={skill} onClick={() => setFilter(skill)} style={{
-              border: `0.5px solid ${filter === skill ? 'rgba(26,23,20,0.5)' : 'rgba(26,23,20,0.15)'}`,
-              borderRadius: 20, padding: '7px 16px',
+              border: `0.5px solid ${filter === skill ? 'rgba(26,23,20,0.45)' : 'rgba(26,23,20,0.13)'}`,
+              borderRadius: 20, padding: '6px 15px',
               fontSize: 13, fontWeight: filter === skill ? 500 : 400,
               background: filter === skill ? '#1A1714' : 'transparent',
               color: filter === skill ? '#FAF7F2' : 'var(--ink)',
-              cursor: 'pointer', transition: 'all 0.2s',
+              cursor: 'pointer', transition: 'all 0.18s',
             }}>{skill}</button>
           ))}
         </div>
       </div>
 
       {/* Cards */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 20, padding: '0 40px 60px', maxWidth: 1100, margin: '0 auto' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 18, padding: '0 40px 64px', maxWidth: 1080, margin: '0 auto' }}>
         {filtered.map((scenario, i) => (
           <ScenarioCard key={scenario.id} scenario={scenario} onSelect={setActiveScenario} index={i} completed={completedIds.includes(scenario.id)} />
         ))}
       </div>
 
       {/* How it works */}
-      <div style={{ borderTop: '0.5px solid rgba(26,23,20,0.1)', padding: '60px 40px', background: '#1A1714' }}>
-        <div style={{ maxWidth: 900, margin: '0 auto' }}>
-          <div style={{ fontSize: 11, fontWeight: 500, letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--accent)', marginBottom: 20 }}>How it works</div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 32 }}>
+      <div style={{ borderTop: '0.5px solid rgba(26,23,20,0.08)', padding: '56px 40px', background: '#F5F2ED' }}>
+        <div style={{ maxWidth: 860, margin: '0 auto' }}>
+          <div style={{ fontSize: 10, fontWeight: 500, letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--ink-60)', marginBottom: 20 }}>How it works</div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 28 }}>
             {[
-              { num: '01', title: 'Choose a scenario', body: 'Pick a real-life situation that challenges your emotional skills — at work, home, or in relationships.' },
-              { num: '02', title: 'Converse with AI', body: 'The AI plays the other person — authentically difficult. Your words shape how they respond.' },
-              { num: '03', title: 'Get live coaching', body: 'Every few exchanges, your AI coach surfaces what you did well and what to try differently.' },
+              { num: '01', title: 'Choose a scenario', body: 'Pick a real-life situation that challenges your emotional skills — at work, in relationships, or with yourself.' },
+              { num: '02', title: 'Converse with AI', body: 'The AI plays the other person authentically. Your words and tone shape how they respond.' },
+              { num: '03', title: 'Get live coaching', body: 'Your AI coach gives you specific, honest feedback after every few exchanges — not praise, but insight.' },
             ].map(item => (
-              <div key={item.num} style={{ borderTop: '0.5px solid rgba(255,255,255,0.15)', paddingTop: 20 }}>
-                <div style={{ fontFamily: 'var(--font-display)', fontSize: 40, color: 'rgba(255,255,255,0.12)', marginBottom: 10 }}>{item.num}</div>
-                <div style={{ fontSize: 15, fontWeight: 500, color: '#FAF7F2', marginBottom: 8 }}>{item.title}</div>
-                <div style={{ fontSize: 13, color: 'rgba(250,247,242,0.55)', lineHeight: 1.7 }}>{item.body}</div>
+              <div key={item.num} style={{ borderTop: '0.5px solid rgba(26,23,20,0.15)', paddingTop: 18 }}>
+                <div style={{ fontFamily: 'var(--font-display)', fontSize: 36, color: 'rgba(26,23,20,0.1)', marginBottom: 10 }}>{item.num}</div>
+                <div style={{ fontSize: 14, fontWeight: 500, color: 'var(--ink)', marginBottom: 7 }}>{item.title}</div>
+                <div style={{ fontSize: 13, color: 'var(--ink-60)', lineHeight: 1.7 }}>{item.body}</div>
               </div>
             ))}
           </div>
+        </div>
+      </div>
+
+      {/* Sensitivity note */}
+      <div style={{ padding: '28px 40px', background: 'var(--cream)', borderTop: '0.5px solid rgba(26,23,20,0.07)' }}>
+        <div style={{ maxWidth: 860, margin: '0 auto', fontSize: 12, color: 'var(--ink-30)', lineHeight: 1.7 }}>
+          This app is a private space for personal reflection and practice. Conversations are not stored or shared.
+          These scenarios deal with real emotional situations — take breaks when you need to.
         </div>
       </div>
     </div>
@@ -116,43 +127,40 @@ function Nav({ view, setView, totalXP, completedCount }) {
   return (
     <nav style={{
       display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-      padding: '16px 40px', borderBottom: '0.5px solid rgba(26,23,20,0.1)',
+      padding: '14px 40px', borderBottom: '0.5px solid rgba(26,23,20,0.08)',
       position: 'sticky', top: 0, background: 'var(--cream)', zIndex: 100,
     }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
-        <div style={{ fontFamily: 'var(--font-display)', fontSize: 20 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 22 }}>
+        <div style={{ fontFamily: 'var(--font-display)', fontSize: 19 }}>
           EQ<span style={{ color: 'var(--accent)' }}>Rise</span>
         </div>
-        <div style={{ display: 'flex', gap: 4 }}>
+        <div style={{ display: 'flex', gap: 3 }}>
           {[
             { id: 'home', label: 'Simulator' },
             { id: 'goals', label: '6-Week Goals' },
           ].map(tab => (
             <button key={tab.id} onClick={() => setView(tab.id)} style={{
-              background: view === tab.id ? 'rgba(26,23,20,0.07)' : 'none',
-              border: 'none', borderRadius: 20, padding: '6px 14px',
+              background: view === tab.id ? 'rgba(26,23,20,0.06)' : 'none',
+              border: 'none', borderRadius: 20, padding: '5px 13px',
               fontSize: 13, fontWeight: view === tab.id ? 500 : 400,
               color: view === tab.id ? 'var(--ink)' : 'var(--ink-60)',
-              cursor: 'pointer', transition: 'all 0.2s',
+              cursor: 'pointer', transition: 'all 0.18s',
             }}>{tab.label}</button>
           ))}
         </div>
       </div>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
         {completedCount > 0 && (
-          <div style={{ background: '#EAF3EC', color: '#1A4530', borderRadius: 20, padding: '5px 12px', fontSize: 12, fontWeight: 500, display: 'flex', alignItems: 'center', gap: 5 }}>
-            <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#2D6A50' }} />
+          <div style={{ background: '#EAF3EC', color: '#1A4530', borderRadius: 20, padding: '4px 11px', fontSize: 12, fontWeight: 500, display: 'flex', alignItems: 'center', gap: 5 }}>
+            <div style={{ width: 5, height: 5, borderRadius: '50%', background: '#2D6A50' }} />
             {completedCount} done
           </div>
         )}
         {totalXP > 0 && (
-          <div style={{ background: '#FBF5E6', color: '#5C3D00', borderRadius: 20, padding: '5px 12px', fontSize: 12, fontWeight: 500 }}>
+          <div style={{ background: '#FBF5E6', color: '#5C3D00', borderRadius: 20, padding: '4px 11px', fontSize: 12, fontWeight: 500 }}>
             {totalXP} XP
           </div>
-        )}
-        {completedCount === 0 && totalXP === 0 && (
-          <div style={{ fontSize: 12, color: 'var(--ink-30)' }}>Complete a scenario to earn XP</div>
         )}
       </div>
     </nav>
