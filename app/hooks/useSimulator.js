@@ -4,15 +4,25 @@ const PROXY_URL = 'https://getupandgo.onrender.com/api/chat';
 const MODEL = 'llama-3.3-70b-versatile';
 
 async function callProxy({ system, messages, max_tokens = 1000 }) {
-  // Build messages array — prepend system as first user/assistant pair if needed,
-  // or include as a system role message (Groq supports system role)
+  // Inject system prompt into first user message to bypass Laravel's
+  // ConvertEmptyStringsToNull middleware which nullifies system role content.
+  let builtMessages = messages.map(m => ({ ...m }));
+  if (system && system.trim()) {
+    const firstUserIdx = builtMessages.findIndex(m => m.role === 'user');
+    if (firstUserIdx !== -1) {
+      builtMessages[firstUserIdx] = {
+        ...builtMessages[firstUserIdx],
+        content: '[CONTEXT]\n' + system.trim() + '\n[/CONTEXT]\n\n' + builtMessages[firstUserIdx].content,
+      };
+    } else {
+      builtMessages = [{ role: 'user', content: system.trim() }, ...builtMessages];
+    }
+  }
+
   const payload = {
     model: MODEL,
     max_tokens,
-    messages: [
-      ...(system ? [{ role: 'system', content: system }] : []),
-      ...messages,
-    ],
+    messages: builtMessages,
   };
 
   const res = await fetch(PROXY_URL, {
